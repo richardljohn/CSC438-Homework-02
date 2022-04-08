@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 
@@ -9,14 +10,43 @@ import { AuthService } from './auth.service';
 })
 export class AuthPage implements OnInit {
 
+
+  isLoading = false;
+  isLogin = true;
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
   }
 
   onLogin(){
+    this.isLoading = true; 
     this.authService.login();
-    this.router.navigateByUrl('/places/tabs/discover');
+    setTimeout(() => {
+      this.isLoading = false; 
+      this.router.navigateByUrl('/places/tabs/discover');
+    }, 1500)
+    
+  }
+
+  onSwitchAuthMode() { 
+    this.isLogin = !this.isLogin;
+  }
+
+  onSubmit(form: NgForm) {
+    if(!form.valid){
+      return;
+    }
+
+    const email = form.value.email;
+    const password = form.value.password;
+    console.log(email, password);
+    if(this.isLogin){
+
+    }
+    else { 
+
+    }
+
   }
 
   onLogout(){

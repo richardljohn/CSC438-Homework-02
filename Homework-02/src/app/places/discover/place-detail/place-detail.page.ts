@@ -12,6 +12,7 @@ import { CreateBookingComponent } from 'src/app/bookings/create-booking/create-b
   templateUrl: './place-detail.page.html',
   styleUrls: ['./place-detail.page.scss'],
 })
+
 export class PlaceDetailPage implements OnInit {
 
   place: Place;
@@ -37,17 +38,16 @@ export class PlaceDetailPage implements OnInit {
     .create({
       component: CreateBookingComponent
     })
-    .then(modelEl => {
-      modelEl.present();
-      return modelEl.onDidDismiss();
+    .then(modalEl => {
+      modalEl.present();
+      return modalEl.onDidDismiss();
     })
     .then(resultData => {
       console.log(resultData.data, resultData.role);
       if(resultData.role === 'confirm'){
-        console.log('BOOKED!')
+        console.log('BOOKED!');
       }
-    }
-    );
+    })
   }
 
 }
